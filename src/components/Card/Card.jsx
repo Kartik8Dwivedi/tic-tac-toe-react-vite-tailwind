@@ -1,4 +1,5 @@
 import Icon from '../Icon/icon'
+import {memo} from 'react';
 
 const Card = ({ onPlay, player, index, gameEnd }) => {
   let icon = <Icon />;
@@ -20,4 +21,4 @@ const Card = ({ onPlay, player, index, gameEnd }) => {
   );
 };
 
-export default Card
+export default memo(Card)

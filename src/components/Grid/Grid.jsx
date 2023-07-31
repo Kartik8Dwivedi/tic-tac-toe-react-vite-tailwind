@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Card from "../Card/Card";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,21 +8,21 @@ const Grid = ({ numberOfCards }) => {
   const [turn, setTurn] = useState(false); // false -> X true -> 0
   const [board, setBoard] = useState(Array(numberOfCards).fill(""));
   const [winner, setWinner] = useState(null)
-  function play(index) {
+  const play = useCallback(function playCallback(index) {
     console.log("Move played", index);
     if (turn == true) {
       board[index] = "O";
     } else {
       board[index] = "X";
     }
-    const win = isWinner(board, turn?"O":"X")
-    if(win){
-        setWinner(win)
-        toast(`Congratulation! ${win} won the game`)
+    const win = isWinner(board, turn ? "O" : "X");
+    if (win) {
+      setWinner(win);
+      toast(`Congratulation! ${win} won the game`);
     }
     setBoard([...board]);
     setTurn(!turn);
-  }
+  }, [turn]);
   function reset(){
     setTurn(false)
     setBoard(Array(numberOfCards).fill(""));
